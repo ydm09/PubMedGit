@@ -11,7 +11,9 @@ import java.io.File;
 import java.io.IOException;
 import java.util.Iterator;
 import java.util.List; 
-
+import java.util.regex.Matcher; 
+import java.util.regex.Pattern; 
+   
 /**
  * Created by lx201 on 2017/10/25.
  * 得到每个文章的PMID、标题、摘要、mesh词和关键词
@@ -119,15 +121,20 @@ public class XMLParserPubmed {
                       } else {
                           kys = " ";
                       }
-                     
+                      //过滤文本中个的"|"，使各部分得到有效分割
+                      title = title.replaceAll("\\|", "#");
+                      abs = abs.replaceAll("\\|", "#");
+                      mesh = mesh.replaceAll("\\|", "#");
+                      kys = kys.replaceAll("\\|", "#");
                       //得到标题、摘要一起的一个文本
                       //String str = title + abs ;
                       //按年份写入文件，每一篇文章写一行
+                      
                       for(int y = 0; y <= 2017; y ++) {
                     	  if(Integer.toString(y).equals(year)) {
                     		  File ff = new File("pubmedAllFiles//resultYear//result" + year + ".csv");
                               try {
-                                  FileUtils.writeStringToFile(ff,  pmid + '|' + title + '|' + abs + '|' + mesh + '|' + kys + '\n', true);
+                                  FileUtils.writeStringToFile(ff,  pmid + "|" + title + "|" + abs + "|" + mesh + "|" + kys + '\n', true);
 
                               } catch (IOException e) {
                                   e.printStackTrace();
