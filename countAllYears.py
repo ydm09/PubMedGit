@@ -8,7 +8,7 @@ def countAllYears(filePath):
 	with open(filePath, 'r' , encoding = 'UTF-8') as f:
 		for line in f.readlines() :
 			line = line.strip('\n')
-			str = line.split('||')
+			str = line.split('|')
 			if( len(str) != 5):
 				print(len(str))
 				print(line)
